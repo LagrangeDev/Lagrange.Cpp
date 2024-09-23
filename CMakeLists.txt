@@ -13,5 +13,23 @@ if(MSVC)
 	add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 	add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 endif()
+
+# 区分构建模式
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    add_definitions(-D DEBUG)
+endif()
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+    add_definitions(-D RELEASE)
+endif()
+
+# 区分平台
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  add_definitions(-D _WIN_PLATFORM_)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  add_definitions(-D _LINUX_PLATFORM_)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  add_definitions(-D _DARWIN_PLATFORM_)
+endif()
+
 add_subdirectory("Lagrange.Core")
 add_subdirectory("Lagrange.OneBot")
