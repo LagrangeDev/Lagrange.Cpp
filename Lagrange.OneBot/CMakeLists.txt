@@ -16,9 +16,6 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/dist")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/dist")
 include_directories("${CMAKE_SOURCE_DIR}/Lagrange.Core/include")
+
 file(GLOB SOURCES "*.cpp")
-file(GLOB HEADERS "*.h")
-#输出.h文件列表
-message(STATUS "HEADERS: ${HEADERS}")
 add_executable(Lagrange.OneBot  ${SOURCES} ${HEADERS})
-target_link_libraries(Lagrange.OneBot "${CMAKE_SOURCE_DIR}/build/link/Lagrange.Core.lib")
