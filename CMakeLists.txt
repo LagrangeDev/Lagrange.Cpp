@@ -23,6 +23,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
 endif()
 
 # 区分平台
+
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   add_definitions(-D _WIN_PLATFORM_)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
