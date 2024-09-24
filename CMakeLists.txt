@@ -31,6 +31,6 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   add_definitions(-D _DARWIN_PLATFORM_)
 endif()
-
+include_directories("${CMAKE_SOURCE_DIR}/Lagrange.Common/include")
 add_subdirectory("Lagrange.Core")
 add_subdirectory("Lagrange.OneBot")
