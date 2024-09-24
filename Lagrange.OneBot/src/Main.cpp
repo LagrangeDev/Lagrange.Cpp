@@ -1,4 +1,3 @@
-
 #ifdef _WIN_PLATFORM_
 int main(int argc, char *argv[])
 {
