@@ -18,5 +18,5 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/dist")
 
 include_directories("${CMAKE_SOURCE_DIR}/Lagrange.Core/include")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
-file(GLOB SOURCES "*.cpp")
-add_executable(Lagrange.OneBot  ${SOURCES} ${HEADERS})
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp")
+add_executable(Lagrange.OneBot  "${CMAKE_CURRENT_SOURCE_DIR}/src/Main.cpp" ${SOURCES} ${HEADERS})
