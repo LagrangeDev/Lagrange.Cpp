@@ -1,6 +1,12 @@
 #include "System/Util.h"
+#include "System/Command.h"
 int startApplication(int argc, char *argv[])
 {
+    BaseCommand::parseCommand(argc, argv);
+    for (auto &item : BaseCommand::commandList)
+    {
+        std::cout << item.first << " : " << item.second << std::endl;
+    }
     return 0;
 }
 

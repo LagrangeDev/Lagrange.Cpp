@@ -10,3 +10,6 @@
 #ifdef _MAC_PLATFORM_
 #include <unistd.h>
 #endif
+
+
+#include <string>
