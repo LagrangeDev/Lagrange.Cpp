@@ -7,3 +7,8 @@ namespace UtilCharset
     std::string AnsiToUtf8(const std::string &ansi);
     std::wstring AnsiToUtf16(const std::string &ansi);
 }
+namespace UtilBase64
+{
+    std::string Encode(const std::string &data);
+    std::string Decode(const std::string &data);
+}

@@ -1,6 +1,6 @@
 #include "System/Util.h"
 
-//这是因为Window的编码混乱才实现的
+// 这是因为Window的编码混乱才实现的
 
 #ifdef _WIN_PLATFORM_
 std::string UtilCharset::Utf16ToUtf8(const std::wstring &utf16)
@@ -119,3 +119,60 @@ std::wstring UtilCharset::AnsiToUtf16(const std::string &ansi)
 }
 
 #endif
+
+std::string UtilBase64::Encode(const std::string &data)
+{
+    const unsigned char *str = reinterpret_cast<const unsigned char *>(data.c_str());
+    const char *base64Table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    int len = static_cast<int>(data.length());
+    int pad = len % 3;
+    int base64Len = 4 * ((len + 2) / 3);
+    std::string strBase64(base64Len, '\0');
+    for (int i = 0, j = 0; i < len; i += 3, j += 4)
+    {
+        strBase64[j] = base64Table[(str[i] >> 2)];
+        if (j + 3 > base64Len) return std::string("");
+        strBase64[j + 1] = base64Table[(((str[i] & 0x3) << 4) | (i + 1 < len ? str[i + 1] >> 4 : 0))];
+        strBase64[j + 2] = (i + 1 < len) ? base64Table[(((str[i + 1] & 0xf) << 2) | (i + 2 < len ? str[i + 2] >> 6 : 0))] : '=';
+        strBase64[j + 3] = (i + 2 < len) ? base64Table[(str[i + 2] & 0x3f)] : '=';
+    }
+    return strBase64;
+}
+
+std::string UtilBase64::Decode(const std::string &data)
+{
+    const char *base64Table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    const char base64Pad = '=';
+
+    std::string decoded;
+    int len = static_cast<int>(data.length());
+    int pad = (data[len - 1] == base64Pad) + (data[len - 2] == base64Pad);
+    int decodedLen = (len * 3) / 4 - pad;
+    decoded.reserve(decodedLen);
+
+    auto decodeChar = [](char c) -> unsigned char {
+        if (c >= 'A' && c <= 'Z') return c - 'A';
+        if (c >= 'a' && c <= 'z') return c - 'a' + 26;
+        if (c >= '0' && c <= '9') return c - '0' + 52;
+        if (c == '+') return 62;
+        if (c == '/') return 63;
+        return 0;
+    };
+
+    for (int i = 0; i < len; i += 4) {
+        unsigned char b1 = decodeChar(data[i]);
+        unsigned char b2 = decodeChar(data[i + 1]);
+        unsigned char b3 = decodeChar(data[i + 2]);
+        unsigned char b4 = decodeChar(data[i + 3]);
+
+        decoded.push_back((b1 << 2) | (b2 >> 4));
+        if (data[i + 2] != base64Pad) {
+            decoded.push_back((b2 << 4) | (b3 >> 2));
+        }
+        if (data[i + 3] != base64Pad) {
+            decoded.push_back((b3 << 6) | b4);
+        }
+    }
+
+    return decoded;
+}
