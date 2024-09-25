@@ -16,8 +16,10 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/dist")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/dist")
 
+include_directories("${CMAKE_SOURCE_DIR}/Largange.Common/include")
 include_directories("${CMAKE_SOURCE_DIR}/Lagrange.Core/include")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
+# file(GLOB HEADERS "${CMAKE_SOURCE_DIR}/Largange.Common/include/**/*.h")
 file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp")
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   add_executable(

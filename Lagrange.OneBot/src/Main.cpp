@@ -1,14 +1,12 @@
 #include "System/Util.h"
 #include "System/Command.h"
+#include <fstream>
+
 int startApplication(int argc, char *argv[])
 {
     //system("chcp 65001 & cls");
     SetConsoleOutputCP(65001);
     BaseCommand::parseCommand(argc, argv);
-    for (auto &item : BaseCommand::commandList)
-    {
-        std::cout << item.first << " : " << item.second << std::endl;
-    }
     return 0;
 }
 
