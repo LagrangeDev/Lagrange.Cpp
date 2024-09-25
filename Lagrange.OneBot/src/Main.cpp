@@ -2,7 +2,8 @@
 #include "System/Command.h"
 int startApplication(int argc, char *argv[])
 {
-    system("chcp 65001 & cls");
+    //system("chcp 65001 & cls");
+    SetConsoleOutputCP(65001);
     BaseCommand::parseCommand(argc, argv);
     for (auto &item : BaseCommand::commandList)
     {
