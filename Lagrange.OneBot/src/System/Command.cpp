@@ -1,5 +1,7 @@
 #include "System/Command.h"
+
 std::map<std::string, std::string> BaseCommand::commandList = {};
+
 void BaseCommand::parseCommand(int argc, char *argv[])
 {
     commandList["Module"] = argv[0];

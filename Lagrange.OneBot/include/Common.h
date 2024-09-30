@@ -1,3 +1,4 @@
+#pragma once
 // 引入首先平台库
 #ifdef _WIN_PLATFORM_
 #include <Windows.h>
